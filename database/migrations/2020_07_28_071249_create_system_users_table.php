@@ -23,7 +23,7 @@ class CreateSystemUsersTable extends Migration
             $table->json('main_menu_id');
             $table->json('sub_menu_id');
             $table->json('functions');
-            $table->json('is_active')->default(true);
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }
