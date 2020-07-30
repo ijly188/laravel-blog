@@ -14,7 +14,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             // 系統設定
             SystemConfigSeeder::class,
-            OperationSeeder::class
+            OperationSeeder::class,
+            GroupSeeder::class
         ]);
     }
 }
