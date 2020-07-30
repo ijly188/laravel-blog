@@ -11,9 +11,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(
-            // 系統模式
-            SystemConfigSeeder::class
-        );
+        $this->call([
+            // 系統設定
+            SystemConfigSeeder::class,
+            OperationSeeder::class
+        ]);
     }
 }
