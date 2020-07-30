@@ -13,39 +13,29 @@ class GroupSeeder extends Seeder
         Group::truncate();
         //// 取得關聯資料表的全部資訊 ////
         $operation = Operation::all();
-        // //// 建立假資料 ////
-        // $group = [
-        //     'ParentCompanyManager',
-        //     'ParentCompanyMarketing',
-        //     '7teaBrand',
-        //     '7teaCustomerServiceAllStores',
-        //     '7teaCustomerServiceSomeStore',
-        //     '7teaStoreManager',
-        //     '7teaStoreClerk',
-        //     '7teaStoreSupervise',
-        //     '7teaHumanResource',
-        // ];
-        // $groupZh = [
-        //     '總公司管理',
-        //     '總公司行銷',
-        //     '七盞茶品牌',
-        //     '七盞茶總客服',
-        //     '七盞茶分店客服',
-        //     '七盞茶店長',
-        //     '七盞茶店員',
-        //     '七盞茶督導',
-        //     '七盞茶人資',
-        // ];
-        // for ($i = 0; $i < sizeof($group) - 1; $i++) {
-        //     $randomOperation = $faker->randomElements($operation->pluck('id'), mt_rand() % $operation->count());
-        //     $randomOperation = array_map('strval', $randomOperation);
-        //     sort($randomOperation);
-        //     Group::create([
-        //         'group_name' => $group[$i],
-        //         'group_zh' => $groupZh[$i],
-        //         'functions' => json_encode($randomOperation),
-        //     ]);
-        // }
+        //// 建立假資料 ////
+        $group = [
+            'ParentCompanyManager',
+            'ParentCompanyMarketing',
+            '7teaBrand',
+            '7teaCustomerServiceAllStores',
+        ];
+        $groupZh = [
+            '總公司管理',
+            '總公司行銷',
+            '七盞茶品牌',
+            '七盞茶總客服',
+        ];
+        for ($i = 0; $i < sizeof($group) - 1; $i++) {
+            $randomOperation = $faker->randomElements($operation->pluck('id'), mt_rand() % $operation->count());
+            $randomOperation = array_map('strval', $randomOperation);
+            sort($randomOperation);
+            Group::create([
+                'group_name' => $group[$i],
+                'group_zh' => $groupZh[$i],
+                'functions' => json_encode($randomOperation),
+            ]);
+        }
         // 建立工程師權限群組 with 所有權限
         Group::create([
             'group_name' => 'Root',

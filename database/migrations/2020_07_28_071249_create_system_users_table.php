@@ -19,7 +19,6 @@ class CreateSystemUsersTable extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->string('group');
-            $table->json('store');
             $table->json('main_menu_id');
             $table->json('sub_menu_id');
             $table->json('functions');

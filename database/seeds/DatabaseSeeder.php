@@ -15,7 +15,11 @@ class DatabaseSeeder extends Seeder
             // 系統設定
             SystemConfigSeeder::class,
             OperationSeeder::class,
-            GroupSeeder::class
+            GroupSeeder::class,
+            MainMenuSeeder::class,
+            SubMenuSeeder::class,
+            
+            SystemUserSeeder::class,
         ]);
     }
 }
