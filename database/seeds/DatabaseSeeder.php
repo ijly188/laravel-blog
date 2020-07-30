@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             SubMenuSeeder::class,
             
             SystemUserSeeder::class,
+            
+            MemberSeeder::class,
         ]);
     }
 }

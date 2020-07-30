@@ -19,7 +19,7 @@ class CreateMembersTable extends Migration
             $table->string('password');
             $table->string('register_type');
             $table->string('name');
-            $table->string('picturl_url');
+            $table->string('picture_url');
             $table->string('email')->unique();
             $table->string('phone')->unique();
             $table->string('gender');
