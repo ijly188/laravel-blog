@@ -19,6 +19,7 @@ class CreateArticlesTable extends Migration
             $table->string('title');
             $table->string('content');
             $table->json('content_image_url');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }
