@@ -14,6 +14,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => 'cors'], function () {
+    Route::post('/login', 'Api\SystemUserController@postLogin');
+
+    Route::group(['middleware' => ['token.auth', 'group.permission']], function () {
+        Route::post('/logout', 'Api\SystemUserController@postLogout');
+
+        Route::get('/get-aside-menu', 'Api\SystemUserController@getAsideMenu');
+
+        // Route::post('/upload-picture', 'Api\UploadController@uploadPicture');
+
+        Route::group(['middleware' => 'function.permission'], function () {
+            //會員列表與訂單搜尋
+            Route::get('/get-members-list/{tag?}', 'Api\MemberController@getAllMemberList');
+        });
+    });
 });
