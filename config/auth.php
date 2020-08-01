@@ -68,10 +68,10 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => [
-                App\Entities\SystemUser::class,
-                App\Entities\Member::class
-            ],
+            // 驗證使用後台系統使用者
+            'model' => App\Entities\SystemUser::class,
+            // 驗證使用前台一般使用者
+            // 'model' => App\Entities\Member::class,
         ],
 
         // 'users' => [
