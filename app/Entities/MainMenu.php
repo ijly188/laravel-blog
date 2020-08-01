@@ -10,4 +10,9 @@ class MainMenu extends Model
         'name', 'icon', 'route', 'sort',
         'functions', 'is_active'
     ];
+
+    public function relatedSubManu()
+    {
+        return $this->hasMany('App\Entities\SubMenu', 'main_menu_id', 'id');
+    }
 }
