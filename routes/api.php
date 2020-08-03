@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['middleware' => 'cors'], function () {
+    // 前台 api
+    // 後台 api
     Route::post('/login', 'Api\SystemUserController@postLogin');
 
     Route::group(['middleware' => ['token.auth', 'group.permission']], function () {
@@ -31,6 +33,8 @@ Route::group(['middleware' => 'cors'], function () {
             Route::get('/get-member-detail/{memberId?}', 'Api\MemberController@getMemberDetail');
 
             Route::get('/search-member/{data?}', 'Api\MemberController@searchMember');
+
+            Route::post('/update-member-detail', 'Api\MemberController@updateMemberDetail');
         });
     });
 });
