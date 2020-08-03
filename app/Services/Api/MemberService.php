@@ -10,7 +10,6 @@ use App\Support\Collection;
 class MemberService
 {
     protected $memberRepository;
-    protected $storeRepository;
 
     public function __construct(MemberRepository $memberRepository)
     {
@@ -23,9 +22,8 @@ class MemberService
         $finalData = [];
 
         foreach ($memberData as $key => $memberInfo) {
-            $totalCost = 0;
             $created_at = '';
-
+            
             $getMemberData[] = [
                 'id' => $memberInfo->id,
                 'name' => $memberInfo->name,
@@ -33,7 +31,6 @@ class MemberService
                 'phone' => $memberInfo->phone,
                 'member_level' => $memberInfo->member_level,
                 'created_at' => date('Y-m-d', strtotime($created_at)),
-                'totalCost' => $totalCost,
             ];
         }
         //根據篩選器篩選資料
@@ -103,7 +100,7 @@ class MemberService
                 'member_list' => $showMemberList,
                 'total_point' => $getMemberList->points,
                 'total_coupon' => sizeof(json_decode($getMemberList->coupon)),
-                ];
+            ];
             return $showMemberDetail;
         }
     }
