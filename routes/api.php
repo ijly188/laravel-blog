@@ -29,6 +29,8 @@ Route::group(['middleware' => 'cors'], function () {
             Route::get('/get-members-list/{tag?}', 'Api\MemberController@getAllMemberList');
 
             Route::get('/get-member-detail/{memberId?}', 'Api\MemberController@getMemberDetail');
+
+            Route::get('/search-member/{data?}', 'Api\MemberController@searchMember');
         });
     });
 });
