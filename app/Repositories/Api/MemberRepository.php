@@ -55,4 +55,14 @@ class MemberRepository
 
         return $updateName;
     }
+
+    public function deleteMemberById($userId)
+    {
+        $member = $this->getMemberById($userId);
+        
+        return Member::where('id', $userId)
+                        ->update([
+                            'is_active' => '0'
+                        ]);
+    }
 }
