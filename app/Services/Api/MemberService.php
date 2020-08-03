@@ -146,4 +146,12 @@ class MemberService
         $memberName = $this->memberRepository->updateName($request->memberId, $request->type, $request->data, $request->ip(), $userId, $apiUrl);
         return $memberName;
     }
+
+    public function deleteMember(Request $request, $userId)
+    {
+        $otherService = app()->make(\App\Services\Api\OtherService::class);
+        $apiUrl = $otherService->getApiUrl($request->path());
+
+        return $this->memberRepository->deleteMemberById($request->memberId);
+    }
 }

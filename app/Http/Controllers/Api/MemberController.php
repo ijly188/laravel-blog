@@ -115,4 +115,28 @@ class MemberController extends Controller
             'data' => '',
         ], 200);
     }
+
+    public function deleteMember(Request $request)
+    {
+        $memberData = $this->memberService->deleteMember($request, JWTAuth::user()->id);
+        if (gettype($memberData) == 'string') {
+            return response()->json([
+                'success' => false,
+                'message' => $memberData,
+                'data' => '',
+            ], 422);
+        }
+        if ($memberData) {
+            return response()->json([
+                'success' => true,
+                'message' => '成功更新會員資料',
+                'data' => '',
+            ], 200);
+        }
+        return response()->json([
+            'success' => true,
+            'message' => '更新會員資料失敗',
+            'data' => '',
+        ], 200);
+    }
 }

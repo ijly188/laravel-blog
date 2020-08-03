@@ -35,6 +35,8 @@ Route::group(['middleware' => 'cors'], function () {
             Route::get('/search-member/{data?}', 'Api\MemberController@searchMember');
 
             Route::post('/update-member-detail', 'Api\MemberController@updateMemberDetail');
+
+            Route::post('/delete-member', 'Api\MemberController@deleteMember');
         });
     });
 });
