@@ -88,7 +88,7 @@ class MemberService
         if ($getMemberList == null) {
             return false;
         } else {
-            $showMemberList = [
+            return $showMemberList = [
                 'id' => $getMemberList->id,
                 'name' => $getMemberList->name,
                 'username' => $getMemberList->username,
@@ -96,12 +96,6 @@ class MemberService
                 'member_level' => $getMemberList->member_level,
                 'email' => $getMemberList->email,
             ];
-            $showMemberDetail = [
-                'member_list' => $showMemberList,
-                'total_point' => $getMemberList->points,
-                'total_coupon' => sizeof(json_decode($getMemberList->coupon)),
-            ];
-            return $showMemberDetail;
         }
     }
 
@@ -113,7 +107,7 @@ class MemberService
         } else {
             $created_at = '';
             
-            $getMemberData[] = [
+            return $getMemberData[] = [
                 'id' => $memberInfo->id,
                 'name' => $memberInfo->name,
                 'username' => $memberInfo->username,
@@ -121,8 +115,6 @@ class MemberService
                 'member_level' => $memberInfo->member_level,
                 'created_at' => date('Y-m-d', strtotime($created_at)),
             ];
-
-            return $getMemberData;
         }
     }
 
