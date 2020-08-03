@@ -27,6 +27,8 @@ Route::group(['middleware' => 'cors'], function () {
         Route::group(['middleware' => 'function.permission'], function () {
             //會員列表與訂單搜尋
             Route::get('/get-members-list/{tag?}', 'Api\MemberController@getAllMemberList');
+
+            Route::get('/get-member-detail/{memberId?}', 'Api\MemberController@getMemberDetail');
         });
     });
 });
