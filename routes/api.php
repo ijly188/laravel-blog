@@ -36,12 +36,18 @@ Route::group(['middleware' => 'cors'], function () {
     // 前台 api 重設密碼
     Route::post('/reset-password', 'Api\MemberController@resetPassword');
 
+    // 前台 api 文章列表
+    Route::get('/articles-list/{tag?}', 'Api\ArticleController@getAllArticleList');
+
     // 後台 api
     Route::post('/backstage-login', 'Api\SystemUserController@postLogin');
 
     Route::group(['middleware' => ['token.auth', 'group.permission']], function () {
         // 前台 api
         Route::post('/logout', 'Api\MemberController@postLogout');
+
+        // 前台 api 個人文章列表
+        Route::get('/member-articles-list/{tag?}', 'Api\ArticleController@getMemberArticleList');
 
         // 後台 api
         Route::post('/backstage-logout', 'Api\SystemUserController@postLogout');

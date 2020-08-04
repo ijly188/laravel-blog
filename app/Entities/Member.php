@@ -12,4 +12,10 @@ class Member extends Model
         'app_notify', 'coupon', 'live_address', 'transport_address', 'points',
         'member_level', 'is_active'
     ];
+
+    public function relatedArticle()
+    {
+        return $this->hasMany('App\Entities\Article', 'member_id', 'id');
+        // 對應的modal, modal key, 現在的 key
+    }
 }
