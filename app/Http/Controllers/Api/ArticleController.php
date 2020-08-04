@@ -41,7 +41,6 @@ class ArticleController extends Controller
         ], 200);
     }
 
-    
     public function getMemberArticleList($sortTag = 'all')
     {
         $memberid = JWTAuth::user()->id;
@@ -66,5 +65,32 @@ class ArticleController extends Controller
             'message' => '成功顯示文章列表',
             'data' => $showArticleList,
         ], 200);
+    }
+
+    public function getArticleDetail($articleId)
+    {
+        if (!is_numeric($articleId)) {
+            return response()->json([
+                'success' => false,
+                'message' => '格式錯誤',
+                'data' => '',
+            ], 422);
+        }
+
+        $getArticleDetail = $this->articleService->getArticleDetail($articleId);
+
+        if ($getArticleDetail) {
+            return response()->json([
+                'success' => true,
+                'message' => '成功顯示會員詳細資訊',
+                'data' => $getArticleDetail,
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => true,
+                'message' => '查無此會員',
+                'data' => '',
+            ], 200);
+        }
     }
 }
