@@ -18,7 +18,7 @@ class CreateArticlesTable extends Migration
             $table->string('member_id');
             $table->string('title');
             $table->string('content');
-            $table->json('content_image_url');
+            $table->json('content_image_url')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

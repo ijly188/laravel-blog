@@ -35,4 +35,15 @@ class ArticleRepository extends Model
                     ->where('is_active', true)
                     ->first();
     }
+
+    public function createArticle($params, $memberId)
+    {
+        return Article::create([
+            'member_id' => $memberId,
+            'title' => $params['title'],
+            'content' => $params['content'],
+            'content_image_url' => $params['content_image_url'],
+            'is_active' => 1,
+        ]);
+    }
 }

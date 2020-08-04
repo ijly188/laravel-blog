@@ -114,4 +114,9 @@ class ArticleService
             ];
         }
     }
+
+    public function createArticle($params, $memberid)
+    {
+        $this->articleRepository->createArticle($params, $memberid);
+    }
 }
