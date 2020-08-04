@@ -14,7 +14,7 @@ class ArticleSeeder extends Seeder
         //// 取得關聯資料表的全部資訊 ////
         for ($i = 0; $i < 200; $i++) {
             Article::create([
-                'member_id' => $faker->numberBetween(0, 10),
+                'member_id' => $faker->numberBetween(1, 10),
                 'title' => $faker->word,
                 'content' => $faker->text($maxNbChars = 200),
                 'content_image_url' => json_encode($faker->url),
