@@ -52,6 +52,9 @@ Route::group(['middleware' => 'cors'], function () {
         // 前台 api 個人文章列表
         Route::get('/member-articles-list/{tag?}', 'Api\ArticleController@getMemberArticleList');
 
+        // 前台 api 新增個人文章
+        Route::post('/create-article', 'Api\ArticleController@createArticle');
+
         // 後台 api
         Route::post('/backstage-logout', 'Api\SystemUserController@postLogout');
 
