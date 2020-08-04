@@ -16,6 +16,99 @@ class MemberService
         $this->memberRepository = $memberRepository;
     }
 
+    public function registerMember($params)
+    {
+        $this->memberRepository->setRegisterInfo($params);
+    }
+
+    // 寄送註冊驗證簡訊
+    public function sendPhoneSmsCode($phone)
+    {
+        // 檢查發送手機驗證碼頻率 (5分鐘內不得再發送)
+        $checkTime = $this->memberRepository->checkPhoneCodeTime($phone);
+
+        if ($checkTime[0]) {
+            return 300 - $checkTime[1];
+        }
+
+        $sendService = app()->make(\App\Services\OtherServ\SendsService::class);
+
+        $code = '';
+
+        for ($i = 0; $i < 6; $i++) {
+            $tmpData = rand(0, 9);
+            $code = $code . $tmpData;
+        }
+
+        $this->memberRepository->createPhoneCode($phone, $code);
+
+        $sendService->sendSms($phone, $code, '您的註冊驗證碼為：');
+
+        return 'success';
+    }
+
+    // 確認會員手機是否相符
+    public function checkValidatorCode($phone, $validatorCode)
+    {
+        return $this->memberRepository->checkPhoneValidatorCode($phone, $validatorCode) ? 'success' : false;
+    }
+
+    // 寄送忘記密碼驗證簡訊
+    public function sendForgotSmsCode($params)
+    {
+        if ($this->memberRepository->checkExistsUser($params)) {
+            $checkTime = $this->memberRepository->checkPhoneCodeTime($params['phone']);
+
+            if ($checkTime[0]) {
+                $time = 300 - $checkTime[1];
+                return response()->json([
+                    'success' => false,
+                    'message' => '驗證碼發送頻繁，請過' . $time . '秒再試。',
+                    'data' => ''
+                ]);
+            } else {
+                $sendService = app()->make(\App\Services\OtherServ\SendsService::class);
+                $code = '';
+                for ($i = 0; $i < 6; $i++) {
+                    $rand = rand(0, 9);
+                    $code .= $rand;
+                }
+
+                $this->memberRepository->createPhoneCode($params['phone'], $code);
+                $this->memberRepository->createForgotPasswordRecord($params['phone'], $code);
+                $sendService->sendSms($params['phone'], $code, $params['username'] . '您的忘記密碼手機驗證碼為：');
+                return response()->json([
+                    'success' => true,
+                    'message' => '發送成功',
+                    'data' => ''
+                ]);
+            }
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => '會員資訊錯誤',
+            'data' => ''
+        ]);
+    }
+
+    // 寄送忘記密碼會員資料
+    public function checkForgotPasswordCode($phone, $validatorCode)
+    {
+        return $this->memberRepository->checkPhoneValidatorCode($phone, $validatorCode) ? 'success' : false;
+    }
+
+    // 重設會員密碼
+    public function sendResetPasswordInfo($params)
+    {
+        if ($this->memberRepository->checkExistsUser($params)) {
+            $this->memberRepository->resetPassword($params);
+            return 'success';
+        } else {
+            return false;
+        }
+    }
+
     public function getMemberList($sortTag)
     {
         $memberData = $this->memberRepository->getMemberList();
@@ -53,7 +146,7 @@ class MemberService
         }
         $total = [
             'pagination' => $pagination,
-            'member_order_list' => $finalData,
+            'member_list' => $finalData,
         ];
         return $total;
     }

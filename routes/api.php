@@ -16,18 +16,49 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'cors'], function () {
     // 前台 api
+    Route::post('/login', 'Api\MemberController@postLogin');
+
+    // 前台 api 會員註冊發送驗證碼
+    Route::post('/send-phone-sms', 'Api\MemberController@sendPhoneSms');
+
+    // 前台 api 確認會員手機驗證碼是否相符
+    Route::post('/check-register-code', 'Api\MemberController@checkRegisterCode');
+    
+    // 前台 api 註冊會員
+    Route::post('/register', 'Api\MemberController@registerMember');
+
+    // 寄前台 api 送忘記密碼驗證碼
+    Route::post('/send-forgot-password-sms', 'Api\MemberController@sendForgotPasswordSms');
+
+    // 前台 api 確認忘記密碼資料驗證碼
+    Route::post('/check-forgot-password-code', 'Api\MemberController@checkForgotPasswordCode');
+
+    // 前台 api 重設密碼
+    Route::post('/reset-password', 'Api\MemberController@resetPassword');
+
     // 後台 api
-    Route::post('/login', 'Api\SystemUserController@postLogin');
+    Route::post('/backstage-login', 'Api\SystemUserController@postLogin');
 
     Route::group(['middleware' => ['token.auth', 'group.permission']], function () {
-        Route::post('/logout', 'Api\SystemUserController@postLogout');
+        // 前台 api
+        Route::post('/logout', 'Api\MemberController@postLogout');
+
+        // 後台 api
+        Route::post('/backstage-logout', 'Api\SystemUserController@postLogout');
 
         Route::get('/get-aside-menu', 'Api\SystemUserController@getAsideMenu');
 
         // Route::post('/upload-picture', 'Api\UploadController@uploadPicture');
 
         Route::group(['middleware' => 'function.permission'], function () {
-            //會員列表與訂單搜尋
+            // system function
+            // 這裡的 route 要可以 work 就要去 OperationSeeder 裡面去產對應的 route
+            // 取得服務狀態
+            Route::get('/check-service', 'Api\SystemController@getServiceStatus');
+            
+            Route::post('/update-service', 'Api\SystemController@updateServiceStatus');
+
+            //取得會員列表
             Route::get('/get-members-list/{tag?}', 'Api\MemberController@getAllMemberList');
 
             Route::get('/get-member-detail/{memberId?}', 'Api\MemberController@getMemberDetail');
@@ -37,6 +68,8 @@ Route::group(['middleware' => 'cors'], function () {
             Route::post('/update-member-detail', 'Api\MemberController@updateMemberDetail');
 
             Route::post('/delete-member', 'Api\MemberController@deleteMember');
+
+            // 取得系統使用者列表
         });
     });
 });
