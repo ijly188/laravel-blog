@@ -88,7 +88,7 @@ class ArticleController extends Controller
         } else {
             return response()->json([
                 'success' => true,
-                'message' => '查無此會員',
+                'message' => '查無此會員或文章',
                 'data' => '',
             ], 200);
         }
