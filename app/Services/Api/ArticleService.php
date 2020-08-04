@@ -95,4 +95,23 @@ class ArticleService
                 break;
         }
     }
+
+    public function getArticleDetail($articleId)
+    {
+        //傳入會員Id，顯示會員資訊
+        $getArticleDetail = $this->articleRepository->getArticleById($articleId);
+        $getMemberDetail = $this->articleRepository->getArticleByMemberId($getArticleDetail->member_id);
+
+        if ($getArticleDetail == null) {
+            return false;
+        } else {
+            return $showMemberList = [
+                'username' => $getMemberDetail->username,
+                'title' => $getArticleDetail->title,
+                'content' => $getArticleDetail->content,
+                'content_image_url' => $getArticleDetail->content_image_url,
+                'is_active' => $getArticleDetail->is_active,
+            ];
+        }
+    }
 }

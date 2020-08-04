@@ -15,11 +15,24 @@ class ArticleRepository extends Model
                     ->get();
     }
 
+    public function getArticleById($articleId)
+    {
+        return Article::where('id', $articleId)->first();
+    }
+
     public function getArticleListByMemberId($memberId)
     {
         return Member::with('relatedArticle')
                     ->where('id', $memberId)
                     ->where('is_active', true)
                     ->get();
+    }
+
+    public function getArticleByMemberId($memberId)
+    {
+        return Member::with('relatedArticle')
+                    ->where('id', $memberId)
+                    ->where('is_active', true)
+                    ->first();
     }
 }

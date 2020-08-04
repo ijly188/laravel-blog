@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Api;
 
+use App\Entities\Article;
 use App\Entities\Member;
 use App\Entities\PhoneValidate;
 use App\Entities\PasswordReset;
