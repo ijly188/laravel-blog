@@ -102,7 +102,7 @@ class ArticleService
         $getArticleDetail = $this->articleRepository->getArticleById($articleId);
         $getMemberDetail = $this->articleRepository->getArticleByMemberId($getArticleDetail->member_id);
 
-        if ($getArticleDetail == null) {
+        if ($getArticleDetail == null || $getMemberDetail == null) {
             return false;
         } else {
             return $showMemberList = [
