@@ -60,6 +60,18 @@ class ArticleRepository extends Model
                 ]);
     }
 
+    public function rootUpdateArticle($params, $memberId, $articleId)
+    {
+        Article::where('id', $articleId)
+                ->update([
+                    'member_id' => $memberId,
+                    'title' => $params['title'],
+                    'content' => $params['content'],
+                    'content_image_url' => $params['content_image_url'],
+                    'is_active' => $params['is_active'],
+                ]);
+    }
+
     public function deleteArticle($params, $memberId, $articleId)
     {
         Article::where('id', $articleId)
@@ -67,5 +79,19 @@ class ArticleRepository extends Model
                 ->update([
                     'is_active' => 0,
                 ]);
+    }
+
+    public function getArticleByMemberIdArticleId($params, $memberId, $articleId)
+    {
+        return Article::where('id', $articleId)
+                ->where('member_id', $memberId)
+                ->first();
+    }
+
+    public function rootDeleteArticle($params, $memberId, $articleId)
+    {
+        Article::where('id', $articleId)
+                ->where('member_id', $memberId)
+                ->delete();
     }
 }

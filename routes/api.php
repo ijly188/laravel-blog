@@ -88,6 +88,12 @@ Route::group(['middleware' => 'cors'], function () {
             Route::post('/delete-member', 'Api\MemberController@deleteMember');
 
             // 取得系統使用者列表
+            // root 處理文章
+            Route::post('/root-post-article', 'Api\ArticleController@rootcreateArticle');
+
+            Route::post('/root-update-article-detail/{articleId}', 'Api\ArticleController@rootupdateArticle');
+
+            Route::post('/root-delete-article/{articleId}', 'Api\ArticleController@rootDeleteArticle');
         });
     });
 });

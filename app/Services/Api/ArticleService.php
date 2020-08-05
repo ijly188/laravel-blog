@@ -125,8 +125,25 @@ class ArticleService
         $this->articleRepository->updateArticle($params, $memberid, $articleId);
     }
 
+    public function rootUpdateArticle($params, $memberid, $articleId)
+    {
+        $this->articleRepository->rootUpdateArticle($params, $memberid, $articleId);
+    }
+
     public function deleteArticle($params, $memberid, $articleId)
     {
         $this->articleRepository->deleteArticle($params, $memberid, $articleId);
+    }
+
+    public function rootDeleteArticle($params, $memberid, $articleId)
+    {
+        $message = $this->articleRepository->getArticleByMemberIdArticleId($params, $memberid, $articleId);
+
+        if( $message == null ) {
+            return false;
+        } else {
+            $this->articleRepository->rootDeleteArticle($params, $memberid, $articleId);
+            return true;
+        }
     }
 }
