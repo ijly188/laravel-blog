@@ -98,7 +98,7 @@ class ArticleController extends Controller
 
     public function createArticle(Request $request)
     {
-        $memberid = JWTAuth::user()->id;
+        $memberId = JWTAuth::user()->id;
 
         $data = $request->all();
 
@@ -115,7 +115,7 @@ class ArticleController extends Controller
             ], 422);
         }
 
-        $message = $this->articleService->createArticle($data, $memberid);
+        $message = $this->articleService->createArticle($data, $memberId);
 
         if ($message) {
             return response()->json([
@@ -174,5 +174,88 @@ class ArticleController extends Controller
             'message' => '刪除文章成功',
             'data' => ''
         ], 200);
+    }
+
+    // root
+    public function rootcreateArticle(Request $request)
+    {
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'member_id' => 'required',
+            'title' => 'required|string|max:255',
+            'content' => 'required|string|max:255',
+        ]);
+
+        $memberid = $data['member_id'];
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first(),
+                'data' => ''
+            ], 422);
+        }
+
+        $message = $this->articleService->createArticle($data, $memberid);
+
+        return response()->json([
+            'success' => true,
+            'message' => '新增文章成功',
+            'data' => ''
+        ], 200);
+    }
+
+    public function rootupdateArticle(Request $request, $articleId)
+    {
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'member_id' => 'required',
+            'title' => 'required|string|max:255',
+            'content' => 'required|string|max:255',
+            'is_active' => 'boolean'
+        ]);
+
+        $memberId = $data['member_id'];
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first(),
+                'data' => ''
+            ], 422);
+        }
+
+        $message = $this->articleService->rootUpdateArticle($data, $memberId, $articleId);
+        
+        return response()->json([
+            'success' => true,
+            'message' => '更新文章成功',
+            'data' => ''
+        ], 200);
+    }
+
+    public function rootDeleteArticle(Request $request, $articleId)
+    {
+        $data = $request->all();
+
+        $memberId = $data['member_id'];
+
+        $message = $this->articleService->rootDeleteArticle($data, $memberId, $articleId);
+
+        if ($message) {
+            return response()->json([
+                'success' => true,
+                'message' => '刪除文章成功',
+                'data' => ''
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => true,
+                'message' => '刪除文章失敗',
+                'data' => '',
+            ], 200);
+        }
     }
 }

@@ -18,7 +18,7 @@ class OperationSeeder extends Seeder
             'backstage-login',
             'create-systemuser', 'get-systemusers-list', 'get-systemuser-detail', 'update-systemuser-detail', 'delete-systemuser',
             'search-systemuser',
-            'post-article', 'get-article-list', 'get-article-detail', 'update-article-detail', 'delete-article'
+            'root-post-article', 'get-article-list', 'get-article-detail', 'root-update-article-detail', 'root-delete-article'
         ];
         $operationZh = [
             '確認服務', '更新服務狀態',
