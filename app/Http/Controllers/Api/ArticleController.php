@@ -160,4 +160,19 @@ class ArticleController extends Controller
             'data' => ''
         ], 200);
     }
+
+    public function deleteArticle(Request $request, $articleId)
+    {
+        $memberId = JWTAuth::user()->id;
+
+        $data = $request->all();
+
+        $message = $this->articleService->deleteArticle($data, $memberId, $articleId);
+        
+        return response()->json([
+            'success' => true,
+            'message' => '刪除文章成功',
+            'data' => ''
+        ], 200);
+    }
 }

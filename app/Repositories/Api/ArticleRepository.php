@@ -59,4 +59,13 @@ class ArticleRepository extends Model
                     'is_active' => $params['is_active'],
                 ]);
     }
+
+    public function deleteArticle($params, $memberId, $articleId)
+    {
+        Article::where('id', $articleId)
+                ->where('member_id', $memberId)
+                ->update([
+                    'is_active' => 0,
+                ]);
+    }
 }
