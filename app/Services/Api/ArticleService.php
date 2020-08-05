@@ -124,4 +124,9 @@ class ArticleService
     {
         $this->articleRepository->updateArticle($params, $memberid, $articleId);
     }
+
+    public function deleteArticle($params, $memberid, $articleId)
+    {
+        $this->articleRepository->deleteArticle($params, $memberid, $articleId);
+    }
 }

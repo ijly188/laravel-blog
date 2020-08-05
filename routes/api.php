@@ -58,6 +58,9 @@ Route::group(['middleware' => 'cors'], function () {
         // 前台 api 更新個人文章
         Route::post('/update-article/{articleId}', 'Api\ArticleController@updateArticle');
 
+        // 前台 api 刪除個人文章
+        Route::post('/delete-article/{articleId}', 'Api\ArticleController@deleteArticle');
+
         // 後台 api
         Route::post('/backstage-logout', 'Api\SystemUserController@postLogout');
 
