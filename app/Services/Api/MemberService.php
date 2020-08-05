@@ -176,18 +176,18 @@ class MemberService
     public function getMemberDetail($id)
     {
         //傳入會員Id，顯示會員資訊
-        $getMemberList = $this->memberRepository->getMemberById($id);
+        $getMember = $this->memberRepository->getMemberById($id);
 
-        if ($getMemberList == null) {
+        if ($getMember == null) {
             return false;
         } else {
-            return $showMemberList = [
-                'id' => $getMemberList->id,
-                'name' => $getMemberList->name,
-                'username' => $getMemberList->username,
-                'phone' => $getMemberList->phone,
-                'member_level' => $getMemberList->member_level,
-                'email' => $getMemberList->email,
+            return $showMember = [
+                'id' => $getMember->id,
+                'name' => $getMember->name,
+                'username' => $getMember->username,
+                'phone' => $getMember->phone,
+                'member_level' => $getMember->member_level,
+                'email' => $getMember->email,
             ];
         }
     }

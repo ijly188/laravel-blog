@@ -26,7 +26,7 @@ class GroupSeeder extends Seeder
             '七盞茶品牌',
             '七盞茶總客服',
         ];
-        for ($i = 0; $i < sizeof($group) - 1; $i++) {
+        for ($i = 0; $i < sizeof($group); $i++) {
             $randomOperation = $faker->randomElements($operation->pluck('id'), mt_rand() % $operation->count());
             $randomOperation = array_map('strval', $randomOperation);
             sort($randomOperation);

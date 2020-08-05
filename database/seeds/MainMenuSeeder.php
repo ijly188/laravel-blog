@@ -15,15 +15,15 @@ class MainMenuSeeder extends Seeder
         $operation = Operation::all();
         //// 建立假資料 ////
         $name = [
-            '會員管理', '文章管理'
+            '會員管理', '文章管理', '系統使用者'
         ];
 
         $icon = [
-            'icon-member', 'icon-article'
+            'icon-member', 'icon-article', 'icon-systemuser'
         ];
 
         $route = [
-            '/members-manage', '/articles-manage'
+            '/members-manage', '/articles-manage', 'systemuser-manage'
         ];
         
         for ($i = 0; $i < sizeof($name); $i++) {

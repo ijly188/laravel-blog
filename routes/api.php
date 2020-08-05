@@ -88,6 +88,19 @@ Route::group(['middleware' => 'cors'], function () {
             Route::post('/delete-member', 'Api\MemberController@deleteMember');
 
             // 取得系統使用者列表
+            Route::post('/create-systemuser', 'Api\SystemUserController@createSystemUser');
+
+            Route::get('/get-systemusers-list/{tag?}', 'Api\SystemUserController@getAllSystemUserList');
+
+            Route::get('/get-systemuser-detail/{systemuserId}', 'Api\SystemUserController@getSystemUserDetail');
+
+            Route::get('/search-systemuser/{data?}', 'Api\SystemUserController@searchSystemUser');
+
+            Route::post('/update-systemuser-detail/{systemuserId}', 'Api\SystemUserController@updateSystemUserDetail');
+
+            Route::post('/delete-systemuser/{systemuserId}', 'Api\SystemUserController@deleteSystemUser');
+            
+
             // root 處理文章
             Route::post('/root-post-article', 'Api\ArticleController@rootcreateArticle');
 
