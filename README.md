@@ -98,3 +98,27 @@ MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 JWT_SECRET=
 JWT_TTL=
 ```
+
+### 需要注意的Operation
+開api要注意的是在OperationSeeder裡面有沒有建立對應的route
+如果有route沒有權限的狀況有可能就是這裡的seeder沒有改好
+
+### 設定前台或者後台
+找到 app\config\auth 這隻檔案以後，大約在70行左右會看到以下的code
+```
+    'providers' => [
+        'users' => [
+            'driver' => 'eloquent',
+            // 驗證使用後台系統使用者
+            'model' => App\Entities\SystemUser::class,
+            // 驗證使用前台一般使用者
+            // 'model' => App\Entities\Member::class,
+        ],
+
+        // 'users' => [
+        //     'driver' => 'database',
+        //     'table' => 'users',
+        // ],
+    ],
+```
+在這邊做切換可以設定驗證的資料庫用的是systemuser還是member
