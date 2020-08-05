@@ -119,4 +119,9 @@ class ArticleService
     {
         $this->articleRepository->createArticle($params, $memberid);
     }
+
+    public function updateArticle($params, $memberid, $articleId)
+    {
+        $this->articleRepository->updateArticle($params, $memberid, $articleId);
+    }
 }

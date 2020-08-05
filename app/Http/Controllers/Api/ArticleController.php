@@ -117,9 +117,46 @@ class ArticleController extends Controller
 
         $message = $this->articleService->createArticle($data, $memberid);
 
+        if ($message) {
+            return response()->json([
+                'success' => true,
+                'message' => '新增文章成功',
+                'data' => ''
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => true,
+                'message' => '新增文章失敗',
+                'data' => '',
+            ], 200);
+        }
+    }
+
+    public function updateArticle(Request $request, $articleId)
+    {
+        $memberId = JWTAuth::user()->id;
+
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
+            'title' => 'required|string|max:255',
+            'content' => 'required|string|max:255',
+            'is_active' => 'boolean'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first(),
+                'data' => ''
+            ], 422);
+        }
+
+        $message = $this->articleService->updateArticle($data, $memberId, $articleId);
+        
         return response()->json([
             'success' => true,
-            'message' => '新增文章成功',
+            'message' => '更新文章成功',
             'data' => ''
         ], 200);
     }
