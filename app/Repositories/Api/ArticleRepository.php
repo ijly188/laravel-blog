@@ -46,4 +46,17 @@ class ArticleRepository extends Model
             'is_active' => 1,
         ]);
     }
+
+    public function updateArticle($params, $memberId, $articleId)
+    {
+        Article::where('id', $articleId)
+                ->where('member_id', $memberId)
+                ->update([
+                    'member_id' => $memberId,
+                    'title' => $params['title'],
+                    'content' => $params['content'],
+                    'content_image_url' => $params['content_image_url'],
+                    'is_active' => $params['is_active'],
+                ]);
+    }
 }
