@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSystemUsersTable extends Migration
+class CreateOperationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,10 @@ class CreateSystemUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('system_users', function (Blueprint $table) {
+        Schema::create('operations', function (Blueprint $table) {
             $table->id();
-            $table->string('eip_member_id')->nullable()->unique();
-            $table->string('username')->unique();
-            $table->string('password');
-            $table->string('group');
-            $table->json('main_menu_id');
-            $table->json('sub_menu_id');
-            $table->json('functions');
+            $table->string('api_url');
+            $table->string('function_zh');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
@@ -34,6 +29,6 @@ class CreateSystemUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('system_users');
+        Schema::dropIfExists('operations');
     }
 }

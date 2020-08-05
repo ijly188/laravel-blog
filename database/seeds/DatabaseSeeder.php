@@ -11,6 +11,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        $this->call([
+            // 系統設定
+            SystemConfigSeeder::class,
+            OperationSeeder::class,
+            GroupSeeder::class,
+            MainMenuSeeder::class,
+            SubMenuSeeder::class,
+            
+            SystemUserSeeder::class,
+            
+            MemberSeeder::class,
+            ArticleSeeder::class,
+        ]);
     }
 }
