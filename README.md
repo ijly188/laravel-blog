@@ -1,4 +1,4 @@
-# 七盞茶Web&App後台 & Restful APIs
+# Laravel-blog & Restful APIs
 
 建立laravel-blog & Restful APIs，透過 laravel 7 框架開發
 
